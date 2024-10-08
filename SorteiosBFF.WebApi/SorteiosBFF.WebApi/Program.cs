@@ -1,6 +1,5 @@
 using SorteiosBFF.Application.Services;
-using SorteiosBFF.Domain.Interfaces;
-using SorteiosBFF.Infrastructure.Repositories;
+using SorteiosBFF.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +11,7 @@ builder.Services.AddSwaggerGen();
 
 #region Dependency Injection Services
 builder.Services.AddScoped<SorteioService>();
-builder.Services.AddScoped<ISorteioRepository, SorteioRepository>();
+builder.Services.AddInfrastructure();
 #endregion
 
 var app = builder.Build();
