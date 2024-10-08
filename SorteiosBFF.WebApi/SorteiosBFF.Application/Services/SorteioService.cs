@@ -23,16 +23,28 @@ namespace SorteiosBFF.Application.Services
                 {
                     Id = s.Id,
                     Nome = s.Nome,
+                    StatusConcurso = s.StatusConcurso,
+                    NumerosSorte = s.NumerosSorte.Select(ns => new DadosNumerosSorteDto
+                    {
+                        Numero = ns.Numero,
+                        Data = ns.Data
+                    }).ToList(),
                     NumeroSorteado = s.NumeroSorteado,
                     DataResultado = s.DataResultado,
-                    NumerosDaSorte = s.NumerosDaSorte
+                    NumerosDaSorte = s.NumerosDaSorte,
+                    ResultadoStatus = s.ResultadoStatus
                 }).ToList(),
                 Vibes = new VibesDto
                 {
                     VibesAcumuladas = vibes.VibesAcumuladas,
                     VibesRestantesParaNumeroDaSorte = vibes.VibesRestantesParaNumeroDaSorte
                 },
-                RegrasParticipacao = "Regras de participação..."
+                ParticipeSorteio = new ParticipeSorteioDto
+                {
+                    RegrasParticipacao = "Para tornar sua participacao no vibe...",
+                    LinkCadastroParticipeSorteio = "link.direcionacadastro",
+                    LinkImagemParticipacao = "baixarimagem.com",
+                }
             };
         }
     }
