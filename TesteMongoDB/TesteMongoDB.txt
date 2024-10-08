@@ -1,0 +1,70 @@
+
+Desafio 1: Total de Vendas por Cliente
+retorna o total de vendas (soma o total_amount) por cliente (customer_id), ordena de forma decrescente pelo total de vendas. Id do Cliente, Nome do cliente e o Total de Vendas.
+
+Consulta:
+db.orders.aggregate([
+  {
+    $group: {
+      _id: "$customer.customer_id",
+      name: { $first: "$customer.name" },
+      total_sales: { $sum: "$total_amount" }
+    }
+  },
+  {
+    $sort: { total_sales: -1 }
+  }
+]);
+#################################################################################################################################################################################
+
+Desafio 2: Produtos Mais Vendidos
+retorna os produtos mais vendidos, ordena pela quantidade total vendida, retorna Id do produto, quantidade total vendida e o valor total arrecadado com as vendas desse produto.
+
+Consulta:
+db.orders.aggregate([
+  { $unwind: "$items" },
+  {
+    $group: {
+      _id: "$items.product_id",
+      total_quantity: { $sum: "$items.quantity" },
+      total_revenue: { $sum: { $multiply: ["$items.quantity", "$items.price"] } }
+    }
+  },
+  {
+    $sort: { total_quantity: -1 }
+  }
+]);
+#################################################################################################################################################################################
+
+
+Desafio 3: Média de Gastos por Pedido
+calcula a média do valor total dos pedidos (total_amount) realizados em cada dia. reorna data (sem o horário) e o valor médio dos pedidos.
+
+Consulta:
+db.orders.aggregate([
+  {
+    $group: {
+      _id: { $dateToString: { format: "%Y-%m-%d", date: "$order_date" } },
+      average_order_value: { $avg: "$total_amount" }
+    }
+  },
+  {
+    $sort: { _id: 1 }
+  }
+]);
+#################################################################################################################################################################################
+
+Desafio 4: Resumo de Vendas Mensal
+retorna o total de vendas (soma de total_amount) e a quantidade de pedidos realizados por mês. retorna o ano, o mês, o total de vendas e o número de pedidos.
+
+Consulta:
+db.orders.aggregate([
+  {
+    $group: {
+      _id: {
+        year: { $year: "$order_date" },
+        month: { $month: "$order_date" }
+      },
+      total_sales: { $sum: "$total_amount" },
+      order_count: { $sum: 1 }
+    }
