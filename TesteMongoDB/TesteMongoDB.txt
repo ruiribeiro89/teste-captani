@@ -1,3 +1,64 @@
+Popular base de Dados:
+
+db.orders.insertMany([
+  {
+    "order_id": "ORD001",
+    "customer": {
+      "customer_id": "CUST001",
+      "name": "João Silva",
+      "email": "joao.silva@email.com"
+    },
+    "items": [
+      {
+        "product_id": "PROD001",
+        "quantity": 2,
+        "price": 100.00
+      },
+      {
+        "product_id": "PROD002",
+        "quantity": 1,
+        "price": 50.00
+      }
+    ],
+    "total_amount": 250.00,
+    "order_date": ISODate("2023-08-01T10:00:00Z")
+  },
+  {
+    "order_id": "ORD002",
+    "customer": {
+      "customer_id": "CUST002",
+      "name": "Maria Oliveira",
+      "email": "maria.oliveira@email.com"
+    },
+    "items": [
+      {
+        "product_id": "PROD001",
+        "quantity": 3,
+        "price": 100.00
+      }
+    ],
+    "total_amount": 300.00,
+    "order_date": ISODate("2023-08-01T15:30:00Z")
+  },
+  {
+    "order_id": "ORD003",
+    "customer": {
+      "customer_id": "CUST001",
+      "name": "João Silva",
+      "email": "joao.silva@email.com"
+    },
+    "items": [
+      {
+        "product_id": "PROD002",
+        "quantity": 5,
+        "price": 50.00
+      }
+    ],
+    "total_amount": 250.00,
+    "order_date": ISODate("2023-08-02T12:00:00Z")
+  }
+]);
+#################################################################################################################################################################################
 
 Desafio 1: Total de Vendas por Cliente
 retorna o total de vendas (soma o total_amount) por cliente (customer_id), ordena de forma decrescente pelo total de vendas. Id do Cliente, Nome do cliente e o Total de Vendas.
